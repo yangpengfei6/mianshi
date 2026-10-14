@@ -12,7 +12,7 @@
 
 | # | 交付物 | 名称 | 访问路径 |
 |---|--------|------|----------|
-| 1 | **单据 DocType** | `User Service Record`（用户服务开通/流失档案）+ 子表 `Service Status Change` | Desk → `User Service Record`；安装自动灌入 **788 条** Mock 数据 |
+| 1 | **单据 DocType** | `User Service Record`（用户服务开通/流失档案）+ 子表 `Service Status Change` | Desk → `User Service Record`；安装自动灌入 **798 条** Mock 数据 |
 | 2 | **报表 Report** | `User Growth Analytics`（Script Report，**7 个分析视角**） | Desk → 报表列表 → Growth Analytics；或 `/app/query-report/User Growth Analytics` |
 | 3 | **大屏 Page** | `growth-screen`（1920×1080 深色科技风看板） | `/app/growth-screen` |
 

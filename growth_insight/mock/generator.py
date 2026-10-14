@@ -48,6 +48,16 @@ NEW_USER_TYPES = ACTIVATION_TYPES[:4]
 NEW_USER_TYPE_WEIGHTS = [80.0, 6.0, 8.0, 6.0]
 REACTIVATION_TYPE = ACTIVATION_TYPES[4]
 
+#: 流失说明模板。真实系统里这类字段往往是空的（人工补录），
+#: 所以只给约 45% 的流失用户填写，避免出现"每条都一模一样"的假数据感。
+CHURN_NOTE_TEMPLATES = [
+    "回访记录：客户反馈「{reason}」，已电话沟通，暂无回归意向。",
+    "客服工单已归档，核心诉求未满足：{reason}。",
+    "使用 {days} 天后流失，退出问卷填写：{reason}。",
+    "NPS 低分用户，备注：{reason}。",
+    "客户在 {date} 明确提出不再续费，原因：{reason}。",
+]
+
 
 # ---------------------------------------------------------------------------
 # 业务参数（所有"魔法数字"集中在此，便于调参和答辩时解释）
@@ -377,6 +387,28 @@ def _simulate_user(
     end_reference = churn_date or today
     lifetime_days = max((end_reference - signup_date).days, 0)
 
+    # --- 最后活跃日 ---
+    # 这个字段必须生成，否则风险分会退化：控制器的 set_risk_score 在
+    # last_active_on 为空时回退到「按开通日期算沉默天数」，
+    # 结果所有老用户一律 100 分，字段和分析都失去意义。
+    if churn_date:
+        # 流失前通常先"变安静"一段时间
+        last_active_on = max(churn_date - timedelta(days=rng.randint(0, 30)), signup_date)
+    else:
+        # 指数分布：多数人近期活跃，长尾延伸到数月 —— 这段长尾正是风险分的价值所在
+        idle = min(int(rng.expovariate(1 / 21)), max((today - signup_date).days, 0))
+        last_active_on = max(today - timedelta(days=idle), signup_date)
+
+    # 流失说明是人工补录字段，只给一部分流失用户填写（真实系统里也常常是空的）
+    churn_note = ""
+    if churn_date and rng.random() < 0.45:
+        churn_note = rng.choice(CHURN_NOTE_TEMPLATES).format(
+            reason=churn_reason,
+            days=lifetime_days,
+            date=(churn_date.isoformat() if hasattr(churn_date, "isoformat") else churn_date),
+        )
+
+
     record = {
         "name": f"USR-{index:05d}",
         "user_id": f"U{index:06d}",
@@ -393,6 +425,8 @@ def _simulate_user(
         "activation_type": activation_type,
         "churn_date": churn_date,
         "churn_reason": churn_reason,
+        "churn_note": churn_note,
+        "last_active_on": last_active_on,
         "lifetime_days": lifetime_days,
         "ltv": round(mrr * (lifetime_days / 30.4368), 2),
         "notes": "",
