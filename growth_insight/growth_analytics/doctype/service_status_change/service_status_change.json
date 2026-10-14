@@ -1,0 +1,68 @@
+{
+ "actions": [],
+ "creation": "2026-10-14 10:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "event_date",
+  "event_type",
+  "plan",
+  "mrr",
+  "remark"
+ ],
+ "fields": [
+  {
+   "columns": 2,
+   "fieldname": "event_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "事件日期",
+   "reqd": 1
+  },
+  {
+   "columns": 2,
+   "fieldname": "event_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "事件类型",
+   "options": "开通\n续费\n升级\n降级\n流失预警\n流失\n召回",
+   "reqd": 1
+  },
+  {
+   "columns": 2,
+   "fieldname": "plan",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "当时套餐",
+   "options": "免费试用\n基础版\n专业版\n旗舰版\n企业版"
+  },
+  {
+   "columns": 3,
+   "fieldname": "mrr",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "当时 MRR"
+  },
+  {
+   "columns": 3,
+   "fieldname": "remark",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "说明"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-10-14 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Growth Analytics",
+ "name": "Service Status Change",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "event_date",
+ "sort_order": "ASC",
+ "states": [],
+ "track_changes": 0
+}

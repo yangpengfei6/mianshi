@@ -1,0 +1,265 @@
+{
+ "actions": [],
+ "allow_copy": 1,
+ "allow_import": 1,
+ "allow_rename": 0,
+ "creation": "2026-10-14 10:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "profile_section",
+  "user_id",
+  "user_name",
+  "email",
+  "profile_column",
+  "region",
+  "city",
+  "channel",
+  "device",
+  "subscription_section",
+  "plan",
+  "mrr",
+  "ltv",
+  "subscription_column",
+  "activation_date",
+  "activation_type",
+  "lifetime_section",
+  "status",
+  "lifetime_days",
+  "risk_score",
+  "last_active_on",
+  "churn_column",
+  "churn_date",
+  "churn_reason",
+  "churn_note",
+  "history_tab",
+  "status_history",
+  "notes_tab",
+  "notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "profile_section",
+   "fieldtype": "Section Break",
+   "label": "用户画像"
+  },
+  {
+   "fieldname": "user_id",
+   "fieldtype": "Data",
+   "label": "用户编号",
+   "reqd": 1,
+   "description": "业务侧用户唯一标识；流失回流的用户会沿用同一编号"
+  },
+  {
+   "fieldname": "user_name",
+   "fieldtype": "Data",
+   "label": "用户名称"
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "联系邮箱",
+   "options": "Email"
+  },
+  {
+   "fieldname": "profile_column",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "region",
+   "fieldtype": "Select",
+   "label": "所属区域",
+   "options": "华东\n华南\n华北\n华中\n西南\n西北\n东北\n海外",
+   "reqd": 1
+  },
+  {
+   "fieldname": "city",
+   "fieldtype": "Data",
+   "label": "城市"
+  },
+  {
+   "fieldname": "channel",
+   "fieldtype": "Select",
+   "label": "获客渠道",
+   "options": "自然流量\n搜索引擎\n内容营销\n社交媒体\n转介绍\n线下活动\n应用商店\n付费广告",
+   "reqd": 1
+  },
+  {
+   "fieldname": "device",
+   "fieldtype": "Select",
+   "label": "主要终端",
+   "options": "Web\n移动端 App\n小程序\n桌面客户端\n开放 API",
+   "default": "Web"
+  },
+  {
+   "fieldname": "subscription_section",
+   "fieldtype": "Section Break",
+   "label": "订阅与服务开通"
+  },
+  {
+   "fieldname": "plan",
+   "fieldtype": "Select",
+   "label": "订阅套餐",
+   "options": "免费试用\n基础版\n专业版\n旗舰版\n企业版",
+   "reqd": 1,
+   "default": "基础版"
+  },
+  {
+   "fieldname": "mrr",
+   "fieldtype": "Currency",
+   "label": "月度经常性收入 (MRR)",
+   "description": "单位：元。免费试用套餐为 0"
+  },
+  {
+   "fieldname": "ltv",
+   "fieldtype": "Currency",
+   "label": "生命周期价值 (LTV)",
+   "read_only": 1,
+   "description": "由 MRR 与实际生命周期自动推算，无需手工维护"
+  },
+  {
+   "fieldname": "subscription_column",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "activation_date",
+   "fieldtype": "Date",
+   "label": "服务开通日期",
+   "reqd": 1
+  },
+  {
+   "fieldname": "activation_type",
+   "fieldtype": "Select",
+   "label": "开通类型",
+   "options": "首次开通\n试用转正\n套餐升级\n到期续费\n流失回流",
+   "default": "首次开通"
+  },
+  {
+   "fieldname": "lifetime_section",
+   "fieldtype": "Section Break",
+   "label": "生命周期与流失"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "服务状态",
+   "options": "活跃\n已流失\n已召回",
+   "default": "活跃",
+   "reqd": 1,
+   "description": "状态由「流失日期」自动推导：填写流失日期即视为流失，手工状态与日期冲突时以日期为准"
+  },
+  {
+   "fieldname": "lifetime_days",
+   "fieldtype": "Int",
+   "label": "生命周期 (天)",
+   "read_only": 1,
+   "description": "流失用户 = 流失日 - 开通日；在服用户 = 今天 - 开通日"
+  },
+  {
+   "fieldname": "risk_score",
+   "fieldtype": "Float",
+   "label": "流失风险分",
+   "read_only": 1,
+   "description": "0-100，每晚定时任务根据活跃度与同套餐中位生命周期刷新"
+  },
+  {
+   "fieldname": "last_active_on",
+   "fieldtype": "Date",
+   "label": "最后活跃日期"
+  },
+  {
+   "fieldname": "churn_column",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.status==\"已流失\"",
+   "fieldname": "churn_date",
+   "fieldtype": "Date",
+   "label": "流失日期",
+   "mandatory_depends_on": "eval:doc.status==\"已流失\""
+  },
+  {
+   "depends_on": "eval:doc.status==\"已流失\"",
+   "fieldname": "churn_reason",
+   "fieldtype": "Select",
+   "label": "流失原因",
+   "options": "\n预算/价格因素\n功能不满足\n使用体验问题\n转向竞品\n服务支持不足\n业务调整/需求消失\n其他原因",
+   "mandatory_depends_on": "eval:doc.status==\"已流失\""
+  },
+  {
+   "depends_on": "eval:doc.status==\"已流失\"",
+   "fieldname": "churn_note",
+   "fieldtype": "Small Text",
+   "label": "流失说明"
+  },
+  {
+   "fieldname": "history_tab",
+   "fieldtype": "Tab Break",
+   "label": "状态变更流水"
+  },
+  {
+   "fieldname": "status_history",
+   "fieldtype": "Table",
+   "label": "状态变更记录",
+   "options": "Service Status Change",
+   "description": "开通 / 续费 / 升级 / 预警 / 流失 的完整事件流水。相比通用版本追踪（track_changes），这里只记录与生命周期强相关的关键事件，避免版本表爆炸"
+  },
+  {
+   "fieldname": "notes_tab",
+   "fieldtype": "Tab Break",
+   "label": "备注"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "备注"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-10-14 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Growth Analytics",
+ "name": "User Service Record",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Growth Analyst",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Growth Viewer",
+   "share": 1
+  }
+ ],
+ "search_fields": "user_id, user_name, region, channel, plan, activation_date",
+ "show_title_field_in_link": 1,
+ "sort_field": "activation_date",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "user_name",
+ "track_changes": 0,
+ "track_seen": 0
+}

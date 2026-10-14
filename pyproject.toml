@@ -1,0 +1,45 @@
+[project]
+name = "growth_insight"
+authors = [{ name = "Growth Insight Contributors", email = "growth-insight@example.com" }]
+description = "Frappe App for user growth, retention and churn analytics (Doctype + Report + Dashboard Page)"
+requires-python = ">=3.10"
+readme = "README.md"
+dynamic = ["version"]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/change-me/growth_insight"
+Repository = "https://github.com/change-me/growth_insight"
+
+[tool.bench.frappe-dependencies]
+frappe = ">=15.0.0"
+
+[build-system]
+requires = ["flit_core >=3.4,<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.flit.module]
+name = "growth_insight"
+
+[tool.flit.sdist]
+exclude = [
+    "growth_insight/docs",
+    "growth_insight/scripts",
+    "*/.mypy_cache",
+    "*/.pytest_cache",
+    "*/.ruff_cache",
+    "*/.github",
+]
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+src = ["growth_insight"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "B", "UP", "I"]
+ignore = ["B008", "E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["growth_insight/tests"]
+python_files = ["test_*.py"]

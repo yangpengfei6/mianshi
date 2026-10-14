@@ -1,0 +1,11 @@
+# 统一换行符：Python / JS / JSON / HTML / Markdown 一律使用 LF，
+# 避免在 Linux bench 上 clone 后出现 CRLF 导致的脚本执行问题。
+*.py        text eol=lf
+*.js        text eol=lf
+*.json      text eol=lf
+*.md        text eol=lf
+*.html      text eol=lf
+*.toml      text eol=lf
+*.yml       text eol=lf
+*.txt       text eol=lf
+.gitattributes text eol=lf
