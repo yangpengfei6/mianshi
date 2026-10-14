@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Growth Insight - 领域字典 / 常量定义
 

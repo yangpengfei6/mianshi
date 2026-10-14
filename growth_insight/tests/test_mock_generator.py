@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 mock/generator.py 单元测试（**无需 Frappe 环境**）
 
@@ -44,7 +43,7 @@ def test_same_seed_produces_identical_dataset():
     first = generate_records(today=TODAY)
     second = generate_records(today=TODAY)
     assert len(first) == len(second)
-    for left, right in zip(first, second):
+    for left, right in zip(first, second, strict=True):
         assert left["user_id"] == right["user_id"]
         assert left["activation_date"] == right["activation_date"]
         assert left["churn_date"] == right["churn_date"]
@@ -56,7 +55,8 @@ def test_different_seed_produces_different_dataset():
     first = generate_records(today=TODAY)
     other = generate_records(today=TODAY, config=MockConfig(seed=1234567))
     assert len(first) != len(other) or any(
-        left["churn_date"] != right["churn_date"] for left, right in zip(first, other)
+        # strict=False：两条数据集长度本就可能不同，逐对比较到较短者结束即可
+        left["churn_date"] != right["churn_date"] for left, right in zip(first, other, strict=False)
     )
 
 

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 analytics/core.py 单元测试（**无需 Frappe 环境**）
 

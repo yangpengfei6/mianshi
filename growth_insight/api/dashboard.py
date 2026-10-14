@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Growth Insight 大屏数据 API。
 
 安全设计：
@@ -37,8 +36,8 @@ def _ensure_permission():
 
 def json_safe(value):
     """递归把 date / Decimal 等不可 JSON 序列化的对象转为原生类型。"""
-    from decimal import Decimal
     from datetime import date, datetime
+    from decimal import Decimal
 
     if isinstance(value, dict):
         return {key: json_safe(item) for key, item in value.items()}

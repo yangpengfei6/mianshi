@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 User Service Record 单据测试
 
@@ -14,7 +13,7 @@ User Service Record 单据测试
 import unittest
 
 import frappe
-from frappe.utils import add_days, date_diff, getdate, today
+from frappe.utils import add_days, getdate
 
 
 def make_record(**kwargs):

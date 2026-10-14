@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Growth Insight - Frappe App Hooks
 
 设计要点：所有"非数据损伤性"的副作用都有幂等/可跳过/可重试的入口，

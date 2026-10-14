@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Growth Insight - Mock 数据生成器（纯 Python，零 Frappe 依赖）
 
@@ -23,7 +22,6 @@ Growth Insight - Mock 数据生成器（纯 Python，零 Frappe 依赖）
 
 from __future__ import annotations
 
-import calendar
 import random
 from dataclasses import dataclass, field
 from datetime import date, timedelta
@@ -31,7 +29,6 @@ from datetime import date, timedelta
 from growth_insight.analytics.constants import (
     ACTIVATION_TYPES,
     CHANNELS,
-    DEVICES,
     PLAN_MRR,
     REGION_CITIES,
     STATUS_ACTIVE,

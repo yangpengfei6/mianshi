@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Growth Insight - 用户增长数据报表（Script Report）
 
@@ -19,7 +18,6 @@ Growth Insight - 用户增长数据报表（Script Report）
 ``columns, data, message, chart, report_summary, skip_total_row``
 """
 
-import frappe
 from frappe import _
 
 from growth_insight.analytics import service
@@ -95,7 +93,7 @@ class GrowthReport:
         partial = next((row for row in self.data["trend"]["rows"] if row.get("is_partial")), None)
 
         lines = [
-            f'<div class="small text-muted" style="padding:2px 2px 10px;line-height:1.8;">',
+            '<div class="small text-muted" style="padding:2px 2px 10px;line-height:1.8;">',
             f"<div>{VIEWS[self.view]}</div>",
             "<div>统计区间：<b>{from_date} ~ {to_date}</b> ｜ 当期新增 cohort：<b>{count}</b> 条 ｜ "
             "趋势基线（含更早签约且仍在服的用户）：<b>{baseline}</b> 条</div>".format(
@@ -256,7 +254,9 @@ class GrowthReport:
             entry = dict(row)
             entry.pop("counts", None)
             entry.pop("values", None)
-            for period, value in zip(periods, row["values"]):
+            # strict=False：留存矩阵的行尾可能不足 max_periods 列（Cohort 太新还没走完），
+            # 此时缺列补空值即可，不应让整张报表报错
+            for period, value in zip(periods, row["values"], strict=False):
                 entry[period] = value
             data.append(entry)
 

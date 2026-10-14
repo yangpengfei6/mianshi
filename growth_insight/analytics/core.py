@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Growth Insight - 用户增长分析引擎（纯 Python，零 Frappe 依赖）
 
@@ -28,8 +27,9 @@ from __future__ import annotations
 
 import calendar
 from collections import defaultdict
+from collections.abc import Iterable, Sequence
 from datetime import date, datetime, timedelta
-from typing import Any, Iterable, Sequence
+from typing import Any
 
 from growth_insight.analytics.constants import (
     CHURN_REASONS,
@@ -38,6 +38,7 @@ from growth_insight.analytics.constants import (
     STATUS_CHURNED,
     TENURE_BUCKETS,
 )
+
 __all__ = [
     "normalize_records",
     "parse_date",
@@ -464,7 +465,7 @@ def tenure_distribution(records: Sequence[dict], as_of: date) -> list[dict]:
     """生命周期分布：流失用户用实际生命周期，在服用户统计到 ``as_of``。"""
     records = list(records)
     rows: list[dict] = []
-    for label, low, high in TENURE_BUCKETS:
+    for label, _low, _high in TENURE_BUCKETS:
         rows.append({"bucket": label, "active": 0, "churned": 0, "mrr": 0.0, "lost_mrr": 0.0})
 
     for record in records:

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright (c) 2026, Growth Insight Contributors and contributors
 # For license information, please see license.txt
 
@@ -81,7 +80,7 @@ class UserServiceRecord(Document):
 
         churn = getdate(self.churn_date) if self.churn_date else None
         if churn and churn < activation:
-            frappe.throw("流失日期（{0}）不能早于服务开通日期（{1}）".format(churn, activation))
+            frappe.throw(f"流失日期（{churn}）不能早于服务开通日期（{activation}）")
 
         # 未来日期几乎都是录入错误，会直接污染当月的 Cohort 留存分析
         if activation > getdate(today()):

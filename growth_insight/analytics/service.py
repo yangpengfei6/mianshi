@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Growth Insight - Frappe ORM 适配层
 
