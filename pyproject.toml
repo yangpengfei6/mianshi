@@ -8,8 +8,8 @@ dynamic = ["version"]
 dependencies = []
 
 [project.urls]
-Homepage = "https://github.com/change-me/growth_insight"
-Repository = "https://github.com/change-me/growth_insight"
+Homepage = "https://github.com/yangpengfei6/mianshi"
+Repository = "https://github.com/yangpengfei6/mianshi"
 
 [tool.bench.frappe-dependencies]
 frappe = ">=15.0.0"

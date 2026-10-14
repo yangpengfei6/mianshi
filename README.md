@@ -29,8 +29,8 @@
 
 ```bash
 # 1. 取 App
-bench get-app growth_insight https://github.com/<你的账号>/growth_insight.git
-#   本地开发也可直接 bench get-app growth_insight ../growth_insight
+bench get-app growth_insight https://github.com/yangpengfei6/mianshi.git
+#   本地开发也可直接 bench get-app growth_insight ../mianshi
 
 # 2. 安装（会自动执行 before_install → DocType 同步 → Mock 数据灌入）
 bench --site your.site install-app growth_insight

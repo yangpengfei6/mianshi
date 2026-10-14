@@ -15,8 +15,8 @@ app_icon = "octicon octicon-graph"
 app_color = "blue"
 app_email = "growth-insight@example.com"
 app_license = "MIT"
-app_publisher_url = "https://github.com/change-me/growth_insight"
-source_link = "https://github.com/change-me/growth_insight"
+app_publisher_url = "https://github.com/yangpengfei6/mianshi"
+source_link = "https://github.com/yangpengfei6/mianshi"
 
 required_apps = ["frappe"]
 
