@@ -1,5 +1,7 @@
 # Growth Insight — 用户增长分析套件（Frappe App）
 
+[![CI](https://github.com/yangpengfei6/mianshi/actions/workflows/ci.yml/badge.svg)](https://github.com/yangpengfei6/mianshi/actions/workflows/ci.yml)
+
 面向 SaaS 用户增长的**开箱即用** Frappe 自定义 App：一张服务生命周期单据、一份多视角分析报表、一块可用于会议室投屏的数据大屏。
 
 > 目标版本：**Frappe v15 / v16**。两个版本之间几处会踩坑的差异，已在 [版本兼容性](#七版本兼容性) 一节逐一说明。
